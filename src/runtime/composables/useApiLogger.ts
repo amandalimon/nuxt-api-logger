@@ -7,7 +7,6 @@ const logs = ref<ApiLogEntry[]>([]);
 export function useApiLogger() {
   const pushLog = (info: ApiLogEntry) => {
     const config = useRuntimeConfig().public.apiLogger;
-    console.log(config);
     logs.value.unshift({
       ...info,
       id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,

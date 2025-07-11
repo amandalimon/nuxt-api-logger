@@ -80,7 +80,6 @@ const testUseFetch = async () => {
     const { data } = await useFetch(apiUrl.value);
     useFetchData.value = data.value;
   } catch (error) {
-    console.error("useFetch error:", error);
     useFetchData.value = { error: error.message };
   }
 };
@@ -89,7 +88,6 @@ const testFetch = async () => {
   try {
     fetchData.value = await $fetch(apiUrl.value);
   } catch (error) {
-    console.error("$fetch error:", error);
     fetchData.value = { error: error.message };
   }
 };
