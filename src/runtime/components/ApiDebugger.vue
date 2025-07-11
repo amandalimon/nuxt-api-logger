@@ -1,6 +1,6 @@
 <template>
   <ClientOnly>
-    <div class="api-debugger">
+    <div v-if="config.enabled !== false" class="api-debugger">
       <div class="debugger-header">
         <div class="header-left">
           <div class="debugger-icon">🔍</div>

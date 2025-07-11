@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiLogger: {
-        enabled: false,
+        enabled: true,
         autoTrack: ["useFetch", "$fetch"],
         showPerformance: true,
         maxLogs: 10,
