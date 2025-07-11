@@ -1,84 +1,81 @@
-<!--
-Get your module up and running quickly.
+# Nuxt API Logger
 
-Find and replace all on all files (CMD+SHIFT+F):
-- Name: My Module
-- Package name: my-module
-- Description: My new Nuxt module
--->
+Debug your `$fetch` and `useFetch` API requests in development with a built-in logger UI component.
 
-# My Module
+## 🛠 Installation
 
-[![npm version][npm-version-src]][npm-version-href]
-[![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![License][license-src]][license-href]
-[![Nuxt][nuxt-src]][nuxt-href]
+### 1. Link the module locally
 
-My new Nuxt module for doing amazing things.
-
-- [✨ &nbsp;Release Notes](/CHANGELOG.md)
-<!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/my-module?file=playground%2Fapp.vue) -->
-<!-- - [📖 &nbsp;Documentation](https://example.com) -->
-
-## Features
-
-<!-- Highlight some of the features your module provide here -->
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
-
-## Quick Setup
-
-Install the module to your Nuxt application with one command:
+In the `nuxt-api-logger` project:
 
 ```bash
-npx nuxi module add my-module
+npm link
 ```
 
-That's it! You can now use My Module in your Nuxt app ✨
+Make sure you have this in your `package.json`:
 
+```json
+"scripts": {
+  "dev": "nuxt dev",
+  "build": "nuxt build",
+  "link": "npm link"
+}
+```
 
-## Contribution
+### 2. Link the module into your Nuxt app
 
-<details>
-  <summary>Local development</summary>
-  
-  ```bash
-  # Install dependencies
-  npm install
-  
-  # Generate type stubs
-  npm run dev:prepare
-  
-  # Develop with the playground
-  npm run dev
-  
-  # Build the playground
-  npm run dev:build
-  
-  # Run ESLint
-  npm run lint
-  
-  # Run Vitest
-  npm run test
-  npm run test:watch
-  
-  # Release new version
-  npm run release
-  ```
+In your Nuxt app:
 
-</details>
+```bash
+npm run link-module
+```
 
+Make sure your `package.json` includes:
 
-<!-- Badges -->
-[npm-version-src]: https://img.shields.io/npm/v/my-module/latest.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-version-href]: https://npmjs.com/package/my-module
+```json
+"scripts": {
+  "dev": "nuxt dev",
+  "build": "nuxt build",
+  "link-module": "npm link nuxt-api-logger"
+}
+```
 
-[npm-downloads-src]: https://img.shields.io/npm/dm/my-module.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-downloads-href]: https://npm.chart.dev/my-module
+## ⚙️ Configuration
 
-[license-src]: https://img.shields.io/npm/l/my-module.svg?style=flat&colorA=020420&colorB=00DC82
-[license-href]: https://npmjs.com/package/my-module
+In your `nuxt.config.ts`, enable the module and configure its options:
 
-[nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt.js
-[nuxt-href]: https://nuxt.com
+```ts
+export default defineNuxtConfig({
+  modules: ["nuxt-api-logger"],
+  runtimeConfig: {
+    public: {
+      apiLogger: {
+        enabled: true,
+        autoTrack: ["$fetch", "useFetch"],
+        showPerformance: true,
+        maxLogs: 10,
+      },
+    },
+  },
+});
+```
+
+## 🧩 Usage
+
+Add the `<ApiDebugger />` component to your app, e.g. in `App.vue`:
+
+```vue
+<template>
+  <NuxtLayout>
+    <NuxtPage />
+    <ApiDebugger />
+  </NuxtLayout>
+</template>
+```
+
+## ✅ Features
+
+- Tracks `$fetch` and/or `useFetch` calls
+- Logs method, duration, success/failure, and errors
+- Limits log history (`maxLogs`)
+- Includes a UI debugger component: `<ApiDebugger />`
